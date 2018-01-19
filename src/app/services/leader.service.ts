@@ -11,11 +11,11 @@ export class LeaderService {
   }
 
   getLeader(id:number):Leader {
-    return LEADERS.filter((dish)=>(dish.id===id))[0];
+    return LEADERS.filter((leader)=>(leader.id===id))[0];
   }
 
   getFeaturedLeader():Leader{
-    return LEADERS.filter((dish)=>(dish.featured))[0];
+    return LEADERS.filter((leader)=>(leader.featured))[0];
   }
 
 }
