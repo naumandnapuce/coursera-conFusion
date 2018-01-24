@@ -37,11 +37,43 @@
         <p matLine>{{comment.rating}} Stars</p>
         <p matLine>-- {{comment.author}} {{comment.date | date}}</p>
       </mat-list-item>
+      <mat-list-item *ngIf="!(commentForm.invalid)">
+          <h3 matLine>{{commentForm.get('comment').value}}</h3>
+          <p matLine>{{commentForm.get('rating').value}} Stars</p>
+          <p matLine>-- {{commentForm.get('author').value}}</p>
+          </mat-list-item>
     </mat-list>
-  </div>
-  <div [hidden]="dish">
-    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
-  </div>
 
+  <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+
+      <mat-input-container class="full-width"
+       dividerColor="{{(formErrors.author) ? 'warn' : 'primary'}}">
+        <input matInput formControlName="author" placeholder="Author" type="text" required>
+        <mat-hint>
+          <span [hidden]="!(formErrors.author)">
+            {{formErrors.author}}</span>
+        </mat-hint>
+      </mat-input-container>
+    
+
+      <mat-slider thumbLabel tickInterval="1" matInput min="1" max="5" step="1" value="5" formControlName="rating" required></mat-slider>
+       
+
+
+      <mat-input-container class="full-width"
+       dividerColor="{{(formErrors.comment) ? 'warn' : 'primary'}}">
+       <textarea matInput formControlName="comment" rows="8" placeholder="Your comment" required></textarea>
+        <mat-hint>
+          <span [hidden]="!(formErrors.comment)">
+            {{formErrors.comment}}</span>
+        </mat-hint>
+      </mat-input-container>
+
+    <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+  </form>
+</div>
+<div [hidden]="dish">
+  <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+</div>
 </div>
 
