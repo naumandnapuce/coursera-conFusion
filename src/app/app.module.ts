@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule  } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
+
 import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
   MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
   MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule,
@@ -27,6 +29,9 @@ import {LeaderService} from './services/leader.service';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component'
 
+import { baseURL } from './shared/baseurl';
+import  {processHTTPMsgService} from './services/process-httpmsg.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +49,7 @@ import { LoginComponent } from './login/login.component'
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule, 
     MatToolbarModule,
     MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatFormFieldModule,
     MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule,
@@ -53,7 +59,10 @@ import { LoginComponent } from './login/login.component'
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [DishService,PromotionService,LeaderService],
+  providers: [DishService,PromotionService,LeaderService,
+    processHTTPMsgService,
+   {provide: 'BaseURL', useValue: baseURL}
+  ],
   entryComponents:[
     LoginComponent
   ],
