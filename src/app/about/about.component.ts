@@ -4,6 +4,7 @@ import { Leader } from '../shared/leader';
 import { LeaderService } from '../services/leader.service';
 import { flyInOut,expand } from '../animations/app.animation';
 
+
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',

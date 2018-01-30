@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import {Feedback, ContactType} from '../shared/feedback';
 import { flyInOut } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
+import { LeaderService } from '../services/leader.service';
 
 @Component({
   selector: 'app-contact',
@@ -21,6 +23,9 @@ export class ContactComponent implements OnInit {
   feedbackForm :FormGroup;
   feedback : Feedback;
   contactType = ContactType;
+  submitting: boolean;
+  submittedData: Feedback;
+  errorMess: string;
   formErrors = {
     'firstname': '',
     'lastname': '',
@@ -48,7 +53,8 @@ export class ContactComponent implements OnInit {
       'email':         'Email not in valid format.'
     },
   };
-  constructor(private fb:FormBuilder) { 
+  constructor(private fb:FormBuilder,
+    private feedbackService: FeedbackService) { 
     this.createForm();
   }
 
@@ -75,6 +81,24 @@ export class ContactComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+
+    this.submitting = true;
+    this.feedbackService.submitFeedback(this.feedback)
+    .subscribe(
+      submittedData => { 
+        this.submittedData  = submittedData;
+        this.submitting = false;
+        setTimeout(() => {
+          this.submittedData = null;
+        }, 5000)
+      },
+      errorMess => {
+        this.errorMess = errorMess;
+        this.submitting = false;
+      }
+    )
+
+
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
