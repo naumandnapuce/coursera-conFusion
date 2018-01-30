@@ -20,8 +20,7 @@ export class FeedbackService {
     private processHTTPMsgService:processHTTPMsgService) { }
     
     submitFeedback(feedback:Feedback): Observable<Feedback> {
-      return this.restangular.all('feedback').post(feedback)
-      .catch(error => { return Observable.of(error);  } );
+      return this.restangular.all('feedback').post(feedback);
     }
 
 }

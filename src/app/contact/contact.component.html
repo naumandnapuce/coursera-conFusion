@@ -40,7 +40,7 @@
         <h3>Send us your Feedback</h3>
         <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-        <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!submitting && !submittedData" [@expand]>
           <p>
             <mat-input-container class="half-width"
              dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
@@ -96,5 +96,31 @@
           </p>
           <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
         </form>
+        <div *ngIf="submitting">
+          <h3>Submitting form</h3>
+          <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="submittedData" [@expand]>
+          <h3>Your Submission</h3>
+          <p>
+            First Name: {{submittedData.firstname}}
+            <br/>
+            Last Name: {{submittedData.lastname}}
+            <br/>
+            Tel. Number: {{submittedData.telnum}}
+            <br/>
+            Email: {{submittedData.email}}
+            <br/>
+            Contact You? : {{submittedData.agree}}
+            <br/>
+            How?: {{submittedData.contacttype}}
+            <br/>
+            Feedback: {{submittedData.message}}
+          </p>
+      </div>
+      <div *ngIf="errMess">
+        <h2>Error</h2>
+        <h4>{{errMess}}</h4>
+      </div>
       </div>
 </div>

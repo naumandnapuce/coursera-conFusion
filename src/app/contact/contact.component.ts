@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import {Feedback, ContactType} from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut,expand } from '../animations/app.animation';
 import { FeedbackService } from '../services/feedback.service';
 import { LeaderService } from '../services/leader.service';
+
 
 @Component({
   selector: 'app-contact',
@@ -14,7 +15,8 @@ import { LeaderService } from '../services/leader.service';
     'style': 'display: block;'
     },
   animations:[
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
